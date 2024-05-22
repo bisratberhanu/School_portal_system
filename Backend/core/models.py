@@ -8,12 +8,10 @@ class User(AbstractUser):
         ('T', 'Teacher'),
         ('A', 'Admin')
     ]
-    username = models.CharField(max_length=20, blank=False, unique=True)
-    password = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, blank=False, unique=True) 
     first_name = models.CharField(max_length=20, blank=False)
     last_name = models.CharField(max_length=20, blank=False)
     email = models.EmailField(blank=False, unique=True)
-    
     role = models.CharField(max_length=1, choices=ROLE_CHOICES)
     old_password = models.CharField(max_length=20)
     
