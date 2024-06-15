@@ -17,7 +17,7 @@ class Student(UserType):
 
 
 class Staff(UserType):
-    office_number = models.IntegerField(validators=[MinValueValidator(0)])
+    office_number = models.PositiveSmallIntegerField()
 
 
 class Admin(UserType):
@@ -26,3 +26,12 @@ class Admin(UserType):
         ('S', 'System Admin'),
     ]
     admin_role = models.CharField(max_length=1, choices=ROLE_CHOICES)
+
+
+class Course(models.Model):
+    name = models.CharField(max_length=200)
+    credit_hour = models.PositiveSmallIntegerField(validators=[MaxValueValidator(35)])
+    
+
+class CourseRequirement(models.Model):
+    courses = models.ManyToManyField(Course, related_name='required_courses')
