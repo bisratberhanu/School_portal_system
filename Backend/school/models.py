@@ -37,7 +37,7 @@ class Student(UserType):
     CGPA = models.DecimalField(max_digits=3, decimal_places=2, validators=[MaxValueValidator(Decimal('4.00')), MinValueValidator(Decimal('0.00'))])
     join_year = models.DateField(auto_now_add=True)
     programs = models.ForeignKey(Program, on_delete=models.PROTECT)
-    enrollment = models.ManyToManyField(Enrollment, on_delete=models.PROTECT)
+    enrollment = models.ManyToManyField(Enrollment)
 
 class Staff(UserType):
     office_number = models.PositiveSmallIntegerField()
