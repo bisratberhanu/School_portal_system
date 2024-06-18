@@ -10,6 +10,15 @@ class UserType(models.Model):
     class Meta:
         abstract = True
 
+class Department(models.Model):
+    name = models.CharField(max_length=50)
+
+class Course(models.Model):
+    name = models.CharField(max_length=200)
+    credit_hour = models.PositiveSmallIntegerField(validators=[MaxValueValidator(35)])
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name="courses", null=True)
+    
+
 class Enrollment(models.Model):
     GRADE_CHOICES = [
         ('A', 'Excellent'),
@@ -19,15 +28,10 @@ class Enrollment(models.Model):
         ('F', 'Fail'),
     ]
     grade = models.CharField(max_length=1, choices=GRADE_CHOICES)
+    course = models.OneToOneField(Course, on_delete=models.PROTECT, related_name="enrollment", primary_key=True)
 
-class Course(models.Model):
-    name = models.CharField(max_length=200)
-    credit_hour = models.PositiveSmallIntegerField(validators=[MaxValueValidator(35)])
-    enrollment = models.OneToOneField(Enrollment, on_delete=models.PROTECT, related_name="courses", primary_key=True)
 
-class Department(models.Model):
-    name = models.CharField(max_length=50)
-    course = models.ForeignKey(Course, on_delete=models.PROTECT, related_name="departments")
+    
 
 class Program(models.Model):
     name = models.CharField(max_length=50)
