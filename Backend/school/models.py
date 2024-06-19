@@ -17,7 +17,6 @@ class Course(models.Model):
     name = models.CharField(max_length=200)
     credit_hour = models.PositiveSmallIntegerField(validators=[MaxValueValidator(35)])
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name="courses", null=True)
-    
 
 class Enrollment(models.Model):
     GRADE_CHOICES = [
@@ -29,10 +28,7 @@ class Enrollment(models.Model):
     ]
     grade = models.CharField(max_length=1, choices=GRADE_CHOICES)
     course = models.OneToOneField(Course, on_delete=models.PROTECT, related_name="enrollment", primary_key=True)
-
-
     
-
 class Program(models.Model):
     name = models.CharField(max_length=50)
     department = models.OneToOneField(Department, on_delete=models.CASCADE, primary_key=True)

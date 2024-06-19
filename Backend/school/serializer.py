@@ -15,3 +15,8 @@ class CourseSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['department_id'] = self.context['department']
         return models.Course.objects.create(**validated_data)
+
+class StudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Student
+        fields = ['id', 'CGPA', ]
