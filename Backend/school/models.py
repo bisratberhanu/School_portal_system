@@ -35,3 +35,4 @@ class Course(models.Model):
 
 class CourseRequirement(models.Model):
     courses = models.ManyToManyField(Course, related_name='required_courses')
+
